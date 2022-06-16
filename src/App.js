@@ -8,7 +8,7 @@ import FullName from "./components/FullName";
 
 function App() {
   const [count, setCount] = useState(0);
-  const [state, onOffLigth] = useState("off");
+  const [isOn, setIsOn] = useState(false);
 
   const handleClick = (increase) => {
     let newCount = count;
@@ -20,27 +20,12 @@ function App() {
     setCount(newCount);
   };
 
-  const handleClick2 = (off_on) => {
-    let button = "";
-    if (off_on === "off") {
-      button = "on";
-    }
-    if (off_on === "on") {
-      button = "off";
-    } else {
-      button = "off";
-    }
-    onOffLigth(button);
-  };
-
   const isMultiple = count % 5 === 0 && count !== 0 ? true : false;
   const countType = isMultiple ? "Es multiplo de 5" : "No es multiplo de 5";
   const countClass = isMultiple ? "active" : "inactivo";
 
-  const isOnOff = state === "off" ? true : false;
-  const buttonOn = isOnOff ? "on" : "off";
-  const colorButton = buttonOn ? "squareOn" : "squareOff";
-
+  const squareClass = isOn ? "square-on" : "square-off";
+  const squareText = isOn ? "ON" : "OFF";
   return (
     <div className="App">
       <header className="App-header">
@@ -51,8 +36,14 @@ function App() {
         </p>
         <button onClick={() => handleClick(true)}>Increase</button>
 
-        <div className={colorButton}>{state}</div>
-        <button onClick={() => handleClick2(true)}>off_on</button>
+        <div className={`square ${squareClass}`}>{squareText}</div>
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          <button onClick={() => setIsOn(!isOn)}>Interruptor</button>
+        </div>
       </header>
     </div>
   );
