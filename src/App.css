@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.active {
+  color: #61dafb;
+}
+.inactive {
+  color: white;
+}
+
+.squareOn{
+  background-color: #61dafb;
+}
+
+.squareOff{
+  background-color: #61dafb;
+}
