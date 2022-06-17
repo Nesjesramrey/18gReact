@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./App.css";
 
@@ -9,6 +9,17 @@ import FullName from "./components/FullName";
 function App() {
   const [count, setCount] = useState(0);
   const [isOn, setIsOn] = useState(false);
+  const [style, setStyle] = useState("cont");
+
+  const changeStyle = () => {
+    console.log("you just clicked");
+
+    setStyle("cont2");
+  };
+
+  useEffect(() => {
+    console.log("Esta encima de mi");
+  }, [isOn]);
 
   const handleClick = (increase) => {
     let newCount = count;
@@ -38,7 +49,9 @@ function App() {
 
         <div
           className={`square ${squareClass}`}
-          onMouseMove={() => setIsOn(!isOn)}
+          //onMouseLeave cuando pasa y sale
+          //onMouseMove cada movimiento en el boton
+          onMouseOver={() => setIsOn(!isOn)}
         >
           {squareText}
         </div>
@@ -49,6 +62,21 @@ function App() {
         >
           <button onClick={() => setIsOn(!isOn)}>Interruptor</button>
         </div>
+
+        <>
+          <div className={style} onClick={changeStyle}>
+            Lista 1
+          </div>
+          <div className={style} onClick={changeStyle}>
+            Lista 2
+          </div>
+          <div className={style} onClick={changeStyle}>
+            Lista 3
+          </div>
+          <div className={style} onClick={changeStyle}>
+            Lista 4
+          </div>
+        </>
       </header>
     </div>
   );

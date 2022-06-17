@@ -70,3 +70,10 @@ button:hover {
   width: 200px;
   border: blue 1px;
 }
+.cont {
+  color: violet;
+}
+
+.cont2 {
+  color: yellow;
+}
