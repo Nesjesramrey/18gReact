@@ -36,7 +36,12 @@ function App() {
         </p>
         <button onClick={() => handleClick(true)}>Increase</button>
 
-        <div className={`square ${squareClass}`}>{squareText}</div>
+        <div
+          className={`square ${squareClass}`}
+          onMouseMove={() => setIsOn(!isOn)}
+        >
+          {squareText}
+        </div>
         <div
           style={{
             display: "flex",
