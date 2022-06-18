@@ -1,82 +1,67 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import "./App.css";
 
-// Components
-import Title from "./components/Title";
-import FullName from "./components/FullName";
-
 function App() {
-  const [count, setCount] = useState(0);
-  const [isOn, setIsOn] = useState(false);
-  const [style, setStyle] = useState("cont");
+  // const [itemActive, setItemActive] = useState(null);
 
-  const changeStyle = () => {
-    console.log("you just clicked");
+  // const isActive = (itemNumber) => itemNumber === itemActive;
 
-    setStyle("cont2");
-  };
+  // console.log(itemActive);
 
-  useEffect(() => {
-    console.log("Esta encima de mi");
-  }, [isOn]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 3000);
+  // }, []);
 
-  const handleClick = (increase) => {
-    let newCount = count;
-    if (increase) {
-      newCount = newCount + 1;
-    } else {
-      newCount = newCount - 1;
-    }
-    setCount(newCount);
-  };
+  const koders = [
+    {
+      firstName: "Luis",
+      lastName: "Vera",
+      age: 24,
+      gender: "m",
+      photoURL: "URL VALIDA",
+    },
+    {
+      firstName: "Nestor",
+      lastName: "Ramírez",
+      age: 40,
+      gender: "m",
+      photoURL: "URL VALIDA",
+    },
+    {
+      firstName: "David",
+      lastName: "Romero",
+      age: 28,
+      gender: "m",
+      photoURL: "URL VALIDA",
+    },
+    {
+      firstName: "Yusef",
+      lastName: "Lopéz",
+      age: 40,
+      gender: "m",
+      photoURL: "URL VALIDA",
+    },
+  ];
 
-  const isMultiple = count % 5 === 0 && count !== 0 ? true : false;
-  const countType = isMultiple ? "Es multiplo de 5" : "No es multiplo de 5";
-  const countClass = isMultiple ? "active" : "inactivo";
-
-  const squareClass = isOn ? "square-on" : "square-off";
-  const squareText = isOn ? "ON" : "OFF";
+  const listKoders = koders.map((koder, index) => (
+    <li className="card" key={index}>
+      <span className="card-photo">{koder.photoURL}</span>
+      <span className="card-title">
+        {koder.firstName} {koder.lastName}
+      </span>{" "}
+      <br></br>
+      <span className="card-age">{koder.age}</span> <br></br>
+      <span className="card-gender">{koder.gender}</span>
+    </li>
+  ));
+  //console.log(listKoders);
   return (
     <div className="App">
       <header className="App-header">
-        <Title text="Aaron"></Title>
-        <FullName firstName="Luis" lastName="Vera"></FullName>
-        <p className={countClass}>
-          Counter: {count}, {countType}
-        </p>
-        <button onClick={() => handleClick(true)}>Increase</button>
-
-        <div
-          className={`square ${squareClass}`}
-          //onMouseLeave cuando pasa y sale
-          //onMouseMove cada movimiento en el boton
-          onMouseOver={() => setIsOn(!isOn)}
-        >
-          {squareText}
-        </div>
-        <div
-          style={{
-            display: "flex",
-          }}
-        >
-          <button onClick={() => setIsOn(!isOn)}>Interruptor</button>
-        </div>
-
-        <>
-          <div className={style} onClick={changeStyle}>
-            Lista 1
-          </div>
-          <div className={style} onClick={changeStyle}>
-            Lista 2
-          </div>
-          <div className={style} onClick={changeStyle}>
-            Lista 3
-          </div>
-          <div className={style} onClick={changeStyle}>
-            Lista 4
-          </div>
-        </>
+        <ul>{listKoders}</ul>
       </header>
     </div>
   );
