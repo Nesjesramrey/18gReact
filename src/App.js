@@ -1,68 +1,100 @@
-import { useEffect, useState } from "react";
+// Components
+import Card from "./components/Card";
+import Form from "./components/Form";
 
 import "./App.css";
+import { useState } from "react";
 
 function App() {
-  // const [itemActive, setItemActive] = useState(null);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
 
-  // const isActive = (itemNumber) => itemNumber === itemActive;
-
-  // console.log(itemActive);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 3000);
-  // }, []);
-
-  const koders = [
+  const [koders, setKoders] = useState([
     {
       firstName: "Luis",
       lastName: "Vera",
       age: 24,
       gender: "m",
-      photoURL: "URL VALIDA",
-    },
-    {
-      firstName: "Nestor",
-      lastName: "Ramírez",
-      age: 40,
-      gender: "m",
-      photoURL: "URL VALIDA",
-    },
-    {
-      firstName: "David",
-      lastName: "Romero",
-      age: 28,
-      gender: "m",
-      photoURL: "URL VALIDA",
+      photoURL: "https://sgame.etsisi.upm.es/pictures/18253.jpg?1621958969/",
     },
     {
       firstName: "Yusef",
       lastName: "Lopéz",
       age: 40,
-      gender: "m",
-      photoURL: "URL VALIDA",
+      gender: "f",
+      photoURL: "https://media4.giphy.com/media/5sYyfIMRcpJWNqdySh/giphy.gif",
     },
-  ];
+  ]);
 
-  const listKoders = koders.map((koder, index) => (
-    <li className="card" key={index}>
-      <span className="card-photo">{koder.photoURL}</span>
-      <span className="card-title">
-        {koder.firstName} {koder.lastName}
-      </span>{" "}
-      <br></br>
-      <span className="card-age">{koder.age}</span> <br></br>
-      <span className="card-gender">{koder.gender}</span>
-    </li>
-  ));
-  //console.log(listKoders);
+  const kodersUI = koders.map(
+    ({ firstName, lastName, age, gender, photoURL }, index) => {
+      console.log(firstName);
+      return (
+        <Card
+          key={index}
+          photoURL={photoURL}
+          firstName={firstName}
+          lastName={lastName}
+          age={age}
+          gender={gender}
+        />
+      );
+    }
+  );
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("AGREGAR KODER");
+    const newKoders = [
+      ...koders,
+      {
+        firstName,
+        lastName,
+        age,
+        gender,
+        photoURL,
+      },
+    ];
+
+    setKoders(newKoders);
+
+    setFirstName("");
+    setLastName("");
+    setAge("");
+    setGender("");
+    setPhotoURL("");
+  };
+
+  console.log(koders, "KODERS");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <ul>{listKoders}</ul>
-      </header>
+      <div className="main-container">
+        <div className="container">{kodersUI}</div>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)}
+        />
+        <input
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
+        />
+        <input value={age} onChange={(event) => setAge(event.target.value)} />
+        <input
+          value={gender}
+          onChange={(event) => setGender(event.target.value)}
+        />
+        <input
+          value={photoURL}
+          onChange={(event) => setPhotoURL(event.target.value)}
+        />
+        <button type="submit">Agregar Koder</button>
+      </form>
     </div>
   );
 }
