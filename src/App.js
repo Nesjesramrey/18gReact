@@ -12,6 +12,28 @@ function App() {
   const [photoURL, setPhotoURL] = useState("");
   const [amount, setAmount] = useState(null);
 
+  const [cvc, setCvc] = useState("");
+  const [expiry, setExpiry] = useState("12/06");
+  const [name, setName] = useState("Name");
+  const [number, setNumber] = useState("");
+
+  const handleInputCvc = ({ target: { value } }) => {
+    const newAmount = value;
+    setCvc(newAmount);
+  };
+  const handleInputExpiry = ({ target: { value } }) => {
+    const newAmount = value;
+    setExpiry(newAmount);
+  };
+  const handleInputName = ({ target: { value } }) => {
+    const newAmount = value;
+    setName(newAmount);
+  };
+
+  const handleInputNumber = ({ target: { value } }) => {
+    const newAmount = value;
+    setNumber(newAmount);
+  };
   const [koders, setKoders] = useState([
     {
       firstName: "Luis",
@@ -31,7 +53,7 @@ function App() {
 
   const kodersUI = koders.map(
     ({ firstName, lastName, age, gender, photoURL }, index) => {
-      console.log(firstName);
+      //console.log(firstName);
       return (
         <Card
           key={index}
@@ -47,7 +69,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("AGREGAR KODER");
+    //console.log("AGREGAR KODER");
     const newKoders = [
       ...koders,
       {
@@ -68,7 +90,7 @@ function App() {
     setPhotoURL("");
   };
 
-  console.log(koders, "KODERS");
+  //console.log(koders, "KODERS");
 
   const USD = 20.16;
   const handleChangeAmount = ({ target: { value } }) => {
@@ -109,12 +131,42 @@ function App() {
           placeholder={!amount ? "0.00" : (amount / USD).toFixed(2)}
           onChange={handleChangeAmount}
         />
-
         <input
           type="number"
           placeholder={!amount ? "0.00" : (amount * USD).toFixed(2)}
           onChange={handleChangeAmount}
         />
+
+        <div className=" paymentCard">
+          <div className="wrap">
+            <div className="tarjeta-wrap">
+              <div className="tarjeta">
+                <div className="adelante card1">
+                  <p>{number}</p>
+                  <p>{name}</p>
+                  <p>{expiry}</p>
+                </div>
+                <div className="atras">
+                  <p>{cvc}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form className="containerInput">
+            <input
+              type="number"
+              placeholder="Card Number"
+              value={number}
+              onChange={handleInputNumber}
+            />
+            <br></br>
+            <input type="text" value={name} onChange={handleInputName} />
+            <br></br>
+            <input type="text" value={expiry} onChange={handleInputExpiry} />
+            <br></br>
+            <input type="number" value={cvc} onChange={handleInputCvc} />
+          </form>
+        </div>
       </div>
     </div>
   );
