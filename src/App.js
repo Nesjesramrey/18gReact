@@ -1,6 +1,6 @@
 // Components
 import Card from "./components/Card";
-import Form from "./components/Form";
+//import Form from "./components/Form";
 
 import "./App.css";
 import { useState } from "react";
@@ -11,6 +11,8 @@ function App() {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [photoURL, setPhotoURL] = useState("");
+
+  const [money, setMoney] = useState(0);
 
   const [koders, setKoders] = useState([
     {
@@ -68,6 +70,11 @@ function App() {
     setPhotoURL("");
   };
 
+  // const convertMoney = (event) => {
+  //   event.preventDefault();
+  //   console.log("work");
+  // };
+
   console.log(koders, "KODERS");
 
   return (
@@ -75,7 +82,33 @@ function App() {
       <div className="main-container">
         <div className="container">{kodersUI}</div>
       </div>
-      <Form></Form>
+      <form onSubmit={handleSubmit}>
+        <input
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)}
+        />
+        <input
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
+        />
+        <input value={age} onChange={(event) => setAge(event.target.value)} />
+        <input
+          value={gender}
+          onChange={(event) => setGender(event.target.value)}
+        />
+        <input
+          value={photoURL}
+          onChange={(event) => setPhotoURL(event.target.value)}
+        />
+        <button type="submit">Agregar Koder</button>
+      </form>
+      <div>
+        <p>{money * 20}</p>
+        <input
+          value={money}
+          onChange={(event) => setMoney(event.target.value)}
+        />
+      </div>
     </div>
   );
 }
