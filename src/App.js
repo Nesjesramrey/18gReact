@@ -1,6 +1,5 @@
 // Components
 import Card from "./components/Card";
-//import Form from "./components/Form";
 
 import "./App.css";
 import { useState } from "react";
@@ -11,8 +10,7 @@ function App() {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [photoURL, setPhotoURL] = useState("");
-
-  const [money, setMoney] = useState(0);
+  const [amount, setAmount] = useState(null);
 
   const [koders, setKoders] = useState([
     {
@@ -70,12 +68,13 @@ function App() {
     setPhotoURL("");
   };
 
-  // const convertMoney = (event) => {
-  //   event.preventDefault();
-  //   console.log("work");
-  // };
-
   console.log(koders, "KODERS");
+
+  const USD = 20.16;
+  const handleChangeAmount = ({ target: { value } }) => {
+    const newAmount = Number(value);
+    setAmount(newAmount);
+  };
 
   return (
     <div className="App">
@@ -84,6 +83,7 @@ function App() {
       </div>
       <form onSubmit={handleSubmit}>
         <input
+          placeholder="First name"
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
         />
@@ -102,15 +102,22 @@ function App() {
         />
         <button type="submit">Agregar Koder</button>
       </form>
+
       <div>
-        <p>{money * 20}</p>
-        <input
-          value={money}
-          onChange={(event) => setMoney(event.target.value)}
-        />
+        <p className="title">
+          La cantidad en USD es ${!amount ? "0.00" : (amount / USD).toFixed(2)}
+        </p>
+        <input type="number" value={amount} onChange={handleChangeAmount} />
       </div>
     </div>
   );
 }
 
 export default App;
+
+// 1. El usuario escribe la cantidad NUMERICA EN PESOS MEXICANOS en el input
+// 3. Se renderiza el valor en dolares
+
+// Notas:
+// El input no puede recibir letras solo numeros
+// El output tiene que estar formateado a dos decimales
