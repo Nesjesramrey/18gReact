@@ -104,10 +104,17 @@ function App() {
       </form>
 
       <div>
-        <p className="title">
-          La cantidad en USD es ${!amount ? "0.00" : (amount / USD).toFixed(2)}
-        </p>
-        <input type="number" value={amount} onChange={handleChangeAmount} />
+        <input
+          type="number"
+          placeholder={!amount ? "0.00" : (amount / USD).toFixed(2)}
+          onChange={handleChangeAmount}
+        />
+
+        <input
+          type="number"
+          placeholder={!amount ? "0.00" : (amount * USD).toFixed(2)}
+          onChange={handleChangeAmount}
+        />
       </div>
     </div>
   );
