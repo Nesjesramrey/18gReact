@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import AppContainer from "./containers/AppContainer";
-
+import InfoContainer from "./containers/ProfileContainer";
 // Components
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+//import InfoData from "./pages/InfoData";
 
 function App() {
   return (
@@ -17,7 +18,10 @@ function App() {
         <Route path="app" element={<AppContainer />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<InfoContainer />}>
+            <Route index element={<Profile />} />
+            <Route path="infodata" element={<p>InfoData</p>} />
+          </Route>
         </Route>
       </Routes>
     </div>
