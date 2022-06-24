@@ -6,6 +6,7 @@ import ProfileInfoContainer from "./containers/ProfileInfoContainer";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import InfoData from "./pages/InfoData";
 //import InfoData from "./pages/InfoData";
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="profile" element={<ProfileInfoContainer />}>
             <Route index element={<Profile />} />
-            <Route path="infodata" element={<p>InfoData</p>} />
+            <Route path="infodata" element={InfoData} />
           </Route>
         </Route>
       </Routes>
