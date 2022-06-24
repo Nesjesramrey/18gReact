@@ -1,13 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+
+// Containers
 import AppContainer from "./containers/AppContainer";
-import ProfileInfoContainer from "./containers/ProfileInfoContainer";
+import ProfileContainer from "./containers/ProfileContainer";
+
 // Components
 import About from "./pages/About";
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import InfoData from "./pages/InfoData";
-//import InfoData from "./pages/InfoData";
+import ProfileDetail from "./pages/Profile/Detail";
+import ProfileEdit from "./pages/Profile/Edit";
 
 function App() {
   return (
@@ -19,9 +21,9 @@ function App() {
         <Route path="app" element={<AppContainer />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="profile" element={<ProfileInfoContainer />}>
-            <Route index element={<Profile />} />
-            <Route path="infodata" element={InfoData} />
+          <Route path="profile" element={<ProfileContainer />}>
+            <Route index element={<ProfileDetail />} />
+            <Route path="edit" element={<ProfileEdit />} />
           </Route>
         </Route>
       </Routes>
