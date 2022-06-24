@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-export default function InfoContainer() {
+export default function ProfileInfoContainer() {
   return (
     <div>
-      <p to="infodata">Profile</p>
+      <p to="infodata"></p>
 
       <Outlet />
     </div>

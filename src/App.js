@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import AppContainer from "./containers/AppContainer";
-import InfoContainer from "./containers/ProfileContainer";
+import ProfileInfoContainer from "./containers/ProfileInfoContainer";
 // Components
 import About from "./pages/About";
 import Home from "./pages/Home";
@@ -18,7 +18,7 @@ function App() {
         <Route path="app" element={<AppContainer />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="profile" element={<InfoContainer />}>
+          <Route path="profile" element={<ProfileInfoContainer />}>
             <Route index element={<Profile />} />
             <Route path="infodata" element={<p>InfoData</p>} />
           </Route>
