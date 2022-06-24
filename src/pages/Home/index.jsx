@@ -33,7 +33,12 @@ export default function Home() {
   ));
   //console.log(ricksandMortys);
 
-  return <div className="cardsHome">{ricksandMortys}</div>;
+  return (
+    <div className="mainContainer">
+      <h1 className="titleHome">Bienvenidos a la pagina de Rick and Morty</h1>
+      <div className="cardsHome">{ricksandMortys}</div>
+    </div>
+  );
 }
 
 // 1. Componente se Monta

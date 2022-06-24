@@ -1,34 +1,52 @@
+.mainContainer {
+  margin: 30px;
+  border-radius: 15px;
+}
+
+.titleHome {
+  text-align: center;
+  text-shadow: 2px 2px 2px rgb(38, 38, 47);
+  font-size: 3rem;
+  color: aliceblue;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #2f5cfa;
+}
+
 .cardsHome {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   width: 1600px;
   flex-wrap: wrap;
 }
 
 .card {
-  border: 1px solid;
+  border: 1px;
   margin: 10px;
   width: 350px;
-  border-radius: 15px;
+  height: 450px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  box-shadow: 5px 10px #d9c4c4;
-  background-color: rgba(19, 54, 143, 0.64);
+  box-shadow: 5px 5px #6f676792;
+  background-color: #2f5cfa;
 }
 
 .nameCharacter {
-  font-size: 1.2rem;
-  margin: 20px;
+  font-size: 1.5rem;
+  margin: 10px;
   color: white;
   font-weight: bold;
 }
 
 .nameSpecie {
   font-size: 1rem;
-  margin: 20px;
+  margin: 10px;
   color: aliceblue;
 }
 
 .imageCharacter {
   margin: 20px;
+  border-radius: 50%;
 }
