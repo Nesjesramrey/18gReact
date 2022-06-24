@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./Home.css";
 
 // Services
 import { getCharacters } from "../../services/characters";
@@ -10,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const getCharactersQuery = async () => {
       const data = await getCharacters();
-      console.log(data);
+      //console.log(data);
       setCharacters(data.results);
     };
 
@@ -20,11 +21,19 @@ export default function Home() {
   //console.log(characters, "STATE characters");
 
   const ricksandMortys = characters.map((character, index) => (
-    <li key={index}>{character.name}</li>
+    <div className="card" key={index}>
+      <div className="nameCharacter">Nombre: {character.name}</div>
+      <div className="nameSpecie">Especie: {character.species}</div>
+      <img
+        className="imageCharacter"
+        src={character.image}
+        alt={character.name}
+      />
+    </div>
   ));
-  console.log(ricksandMortys);
+  //console.log(ricksandMortys);
 
-  return <ul>{ricksandMortys}</ul>;
+  return <div className="cardsHome">{ricksandMortys}</div>;
 }
 
 // 1. Componente se Monta
