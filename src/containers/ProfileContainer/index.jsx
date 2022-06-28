@@ -9,8 +9,8 @@ export default function ProfileContainer() {
       <h1>Profile</h1>
       <div className="Profile-nav">
         <nav>
-          <Link to="create">Create</Link>
           <Link to="">Detail</Link>
+          <Link to="create">Create</Link>
           <Link to="edit">Edit</Link>
         </nav>
       </div>

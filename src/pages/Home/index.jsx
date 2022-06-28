@@ -1,20 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Home.css";
 
 // Services
-import { getUsers } from "../../services/users";
 
 export default function Home() {
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    const getUserQuery = async () => {
-      const data = await getUsers();
-      console.log(data, "response");
-      setUsers(data);
-    };
-    getUserQuery();
-  }, []);
+  fetch("https://poised-shift-162315-default-rtdb.firebaseio.com/.json", {
+    method: "GET",
+    headers: {
+      "Content-Type": "Application/JSON",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => setUsers(data));
 
   const test = [
     {
