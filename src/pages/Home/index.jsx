@@ -2,41 +2,40 @@ import { useEffect, useState } from "react";
 import "./Home.css";
 
 // Services
-import { getCharacters } from "../../services/characters";
+import { getUsers } from "../../services/users";
 
 export default function Home() {
-  const [characters, setCharacters] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  // REQUEST A Rick and Morty API.
   useEffect(() => {
-    const getCharactersQuery = async () => {
-      const data = await getCharacters();
-      //console.log(data);
-      setCharacters(data.results);
+    const getUserQuery = async () => {
+      const data = await getUsers();
+      console.log(data, "response");
+      setUsers(data);
     };
-
-    getCharactersQuery();
+    getUserQuery();
   }, []);
 
-  //console.log(characters, "STATE characters");
+  const test = [
+    {
+      name: "John",
+      email: "john@example.com",
+      photoURL: "http://example.com",
+    },
+  ];
 
-  const ricksandMortys = characters.map((character, index) => (
+  const usersKodemia = test.map((user, index) => (
     <div className="card" key={index}>
-      <div className="nameCharacter">Nombre: {character.name}</div>
-      <div className="nameSpecie">Especie: {character.species}</div>
-      <img
-        className="imageCharacter"
-        src={character.image}
-        alt={character.name}
-      />
+      <div className="nameCharacter">Nombre: {user.name}</div>
+      <div className="nameSpecie">Especie: {user.email}</div>
+      <img className="imageCharacter" src={user.photoURL} alt={user.name} />
     </div>
   ));
-  //console.log(ricksandMortys);
 
   return (
     <div className="mainContainer">
       <h1 className="titleHome">Bienvenidos a la pagina de Rick and Morty</h1>
-      <div className="cardsHome">{ricksandMortys}</div>
+      <div className="cardsHome">{usersKodemia}</div>
     </div>
   );
 }
