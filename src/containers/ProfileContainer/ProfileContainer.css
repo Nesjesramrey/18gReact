@@ -5,12 +5,16 @@
 .Profile-nav {
   width: 100%;
   padding: 10px 0px;
-  background-color: rgb(207, 207, 207);
+  background-color: #2f5cfa;
 }
 
 .Profile-nav > nav > a {
-  color: #434343;
+  color: #2f5cfa;
   text-decoration: none;
   cursor: pointer;
   padding: 0 10px;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: monospace;
 }

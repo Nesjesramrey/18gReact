@@ -64,7 +64,7 @@ export default function ProfileCreate() {
         ></input>
         <input
           className="form-control"
-          type="text"
+          type="email"
           name="email"
           placeholder="email"
           onChange={captureInput}
@@ -72,7 +72,7 @@ export default function ProfileCreate() {
         ></input>
         <input
           className="form-control"
-          type="text"
+          type="date"
           name="birthday"
           placeholder="Fecha de nacimiento"
           onChange={captureInput}
