@@ -23,7 +23,8 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="profile" element={<ProfileContainer />}>
             <Route index element={<ProfileDetail />} />
-            <Route path="edit" element={<ProfileEdit />} />
+            <Route path="edit" element={<ProfileEdit />}
+            <Route path="create" element={<ProfileCreate />} />
           </Route>
         </Route>
       </Routes>
