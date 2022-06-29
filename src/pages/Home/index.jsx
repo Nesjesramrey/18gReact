@@ -1,42 +1,25 @@
-import { useState } from "react";
-import "./Home.css";
+import { useEffect, useState } from "react";
 
 // Services
+import { getCharacters } from "../../services/characters";
 
 export default function Home() {
-  const [users, setUsers] = useState([]);
+  const [characters] = useState([]);
 
-  fetch("https://poised-shift-162315-default-rtdb.firebaseio.com/.json", {
-    method: "GET",
-    headers: {
-      "Content-Type": "Application/JSON",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => setUsers(data));
+  // REQUEST A Rick and Morty API.
+  useEffect(() => {
+    const getCharactersQuery = async () => {
+      const data = await getCharacters();
+      console.log(data, "RESPUESTA DEL SERVIDOR");
+      // setCharacters(data.results);
+    };
 
-  const test = [
-    {
-      name: "John",
-      email: "john@example.com",
-      photoURL: "http://example.com",
-    },
-  ];
+    getCharactersQuery();
+  }, []);
 
-  const usersKodemia = test.map((user, index) => (
-    <div className="card" key={index}>
-      <div className="nameCharacter">Nombre: {user.name}</div>
-      <div className="nameSpecie">Especie: {user.email}</div>
-      <img className="imageCharacter" src={user.photoURL} alt={user.name} />
-    </div>
-  ));
+  console.log(characters, "STATE characters");
 
-  return (
-    <div className="mainContainer">
-      <h1 className="titleHome">Bienvenidos a la pagina de Rick and Morty</h1>
-      <div className="cardsHome">{usersKodemia}</div>
-    </div>
-  );
+  return <h1>Bienvenido</h1>;
 }
 
 // 1. Componente se Monta

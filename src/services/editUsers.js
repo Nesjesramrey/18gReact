@@ -1,6 +1,6 @@
 const generateConfig = (body) => {
   return {
-    method: "POST",
+    method: "PATCH",
     headers: {
       "Content-Type": "Application/JSON",
     },
@@ -8,10 +8,10 @@ const generateConfig = (body) => {
   };
 };
 
-export const create = async (body) => {
+export const editUser = async (body) => {
   const requestConfig = generateConfig(body);
   const response = await fetch(
-    "https://kodemia-18g-default-rtdb.firebaseio.com/.json",
+    `https://kodemia-18g-default-rtdb.firebaseio.com/-N5hJEPDls2mSuA3bSsD.json`,
     requestConfig
   );
   const data = await response.json();

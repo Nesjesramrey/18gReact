@@ -1,87 +1,149 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { editUser } from "../../../services/editUsers";
+import { retrieve as retrieveUser } from "../../../services/editUsers";
+
+// CSS
 import "./Edit.css";
 
 export default function ProfileEdit() {
-  const dataUser = {
-    name: "",
-    lastName: "",
-    photoUrl: "",
-    email: "",
-    birthday: "",
+  // Local state
+  const [user, setUser] = useState(null);
+
+  // RRD
+  const { id } = useParams();
+
+  useEffect(() => {
+    console.log("PRIMERA VEZ");
+
+    const getUser = async () => {
+      const data = await retrieveUser(id);
+      setTimeout(() => {
+        setUser(data);
+      }, 2000);
+      console.log(data);
+    };
+
+    getUser();
+  }, []);
+
+  //console.log(id);
+  // Local state
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+
+  const cleanForm = () => {
+    setFirstName("");
+    setLastName("");
+    setPhotoURL("");
+    setEmail("");
+    setBirthdate("");
   };
 
-  const [user, setUser] = useState(dataUser);
+  const isEmpty = (value) => !value;
 
-  const captureInput = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (
+      isEmpty(firstName) ||
+      isEmpty(lastName) ||
+      isEmpty(photoURL) ||
+      isEmpty(email) ||
+      isEmpty(birthdate)
+    ) {
+      //toast.error("Llena el form!!!!");
+      return;
+    }
+
+    const data = {
+      firstName,
+      lastName,
+      photoURL,
+      email,
+      birthdate,
+    };
+
+    try {
+      await editUser(data);
+      // toast.success("Todo fine!!");
+      cleanForm();
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  const saveData = async (e) => {
-    e.preventDefault();
-    console.log(user);
-    setUser({ ...dataUser });
-  };
-
-  function sendData() {
-    fetch("https://poised-shift-162315-default-rtdb.firebaseio.com/.json", {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/JSON",
-      },
-
-      body: JSON.stringify(user),
-    }).then((response) => console.log(response));
-  }
 
   return (
-    <div className="profile-create-container">
-      Datos a modificar
-      <form onSubmit={saveData} className="form-container">
-        <input
-          className="form-control"
-          type="text"
-          name="name"
-          placeholder="Nombre"
-          onChange={captureInput}
-          value={user.name}
-        ></input>
-        <input
-          className="form-control"
-          type="text"
-          name="lastName"
-          placeholder="Apellido"
-          onChange={captureInput}
-          value={user.lastName}
-        ></input>
-        <input
-          className="form-control"
-          type="text"
-          name="photoUrl"
-          placeholder="Foto"
-          onChange={captureInput}
-          value={user.photoUrl}
-        ></input>
-        <input
-          className="form-control"
-          type="email"
-          name="email"
-          placeholder="email"
-          onChange={captureInput}
-          value={user.email}
-        ></input>
-        <input
-          className="form-control"
-          type="date"
-          name="birthday"
-          placeholder="Fecha de nacimiento"
-          onChange={captureInput}
-          value={user.birthday}
-        ></input>
-        <button onClick={sendData} className="btn-form-submit">
-          Suscribete
-        </button>
-      </form>
+    <div>
+      <h2>Editar</h2>
+      {!user ? (
+        <p>Loading</p>
+      ) : (
+        <div>
+          <img src={user.photoURL} />
+          <p>
+            {user.firstName} {user.lastName}
+          </p>
+          <p>{user.email}</p>
+          <div>
+            <h2>Llena los campos a editar</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="form-container">
+                <div className="form-child">
+                  <input
+                    className="input"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </div>
+                <div className="form-child">
+                  <input
+                    className="input"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="form-container">
+                <div className="form-child">
+                  <input
+                    className="input"
+                    placeholder="Photo URL"
+                    type="url"
+                    value={photoURL}
+                    onChange={(e) => setPhotoURL(e.target.value)}
+                  />
+                </div>
+                <div className="form-child">
+                  <input
+                    className="input"
+                    placeholder="Email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="form-container">
+                <input
+                  className="input"
+                  placeholder="Birthdate"
+                  type="date"
+                  value={birthdate}
+                  onChange={(e) => setBirthdate(e.target.value)}
+                />
+              </div>
+              <button type="submit" className="btn">
+                Create User
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

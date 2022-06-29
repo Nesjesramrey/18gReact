@@ -8,9 +8,10 @@ import ProfileContainer from "./containers/ProfileContainer";
 // Components
 import About from "./pages/About";
 import Home from "./pages/Home";
+import ProfileCreate from "./pages/Profile/Create";
 import ProfileDetail from "./pages/Profile/Detail";
 import ProfileEdit from "./pages/Profile/Edit";
-import ProfileCreate from "./pages/Profile/Create";
+import ProfileList from "./pages/Profile/List";
 
 function App() {
   return (
@@ -22,10 +23,11 @@ function App() {
         <Route path="app" element={<AppContainer />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="profile" element={<ProfileContainer />}>
-            <Route index element={<ProfileDetail />} />
+          <Route path="profiles" element={<ProfileContainer />}>
+            <Route index element={<ProfileList />} />
+            <Route path=":id" element={<ProfileDetail />} />
             <Route path="create" element={<ProfileCreate />} />
-            <Route path="edit" element={<ProfileEdit />} />
+            <Route path="edit/:id" element={<ProfileEdit />} />
           </Route>
         </Route>
       </Routes>
