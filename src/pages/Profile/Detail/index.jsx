@@ -25,6 +25,11 @@ export default function ProfileDetail() {
 
   console.log(id);
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    deleteUser(id);
+  };
+
   return (
     <div>
       <h2>Detail</h2>
@@ -39,7 +44,7 @@ export default function ProfileDetail() {
           <p>{user.email}</p>
           <p>{user.birthdate}</p>
           <button onClick={() => navigate(-1)}>Regresar</button>
-          <button onClick={() => deleteUser()}>Eliminar</button>
+          <button onClick={handleClick}>Eliminar</button>
         </div>
       )}
     </div>
