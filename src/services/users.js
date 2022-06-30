@@ -48,3 +48,20 @@ export const update = async (id, body) => {
   const data = await response.json();
   return data;
 };
+
+export const deleteUser = async (id, body) => {
+  const response = await fetch(
+    `https://kodemia-18g-default-rtdb.firebaseio.com/${id}.json`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "Application/JSON",
+      },
+      body: JSON.stringify(body),
+    }
+  );
+  console.log(response.status);
+  console.log(body);
+  const data = await response.json();
+  return data;
+};
