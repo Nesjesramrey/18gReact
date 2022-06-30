@@ -1,47 +1,41 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { editUser } from "../../../services/editUsers";
-import { retrieve as retrieveUser } from "../../../services/editUsers";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  retrieve as retrieveUser,
+  update as updateUser,
+} from "../../../services/users";
 
-// CSS
-import "./Edit.css";
+// Toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Input from "../../../components/Input";
 
 export default function ProfileEdit() {
   // Local state
-  const [user, setUser] = useState(null);
-
-  // RRD
-  const { id } = useParams();
-
-  useEffect(() => {
-    console.log("PRIMERA VEZ");
-
-    const getUser = async () => {
-      const data = await retrieveUser(id);
-      setTimeout(() => {
-        setUser(data);
-      }, 2000);
-      console.log(data);
-    };
-
-    getUser();
-  }, []);
-
-  //console.log(id);
-  // Local state
+  const [isLoading, setIsLoading] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [photoURL, setPhotoURL] = useState("");
   const [email, setEmail] = useState("");
   const [birthdate, setBirthdate] = useState("");
 
-  const cleanForm = () => {
-    setFirstName("");
-    setLastName("");
-    setPhotoURL("");
-    setEmail("");
-    setBirthdate("");
-  };
+  // RRD
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const data = await retrieveUser(id);
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setPhotoURL(data.photoURL);
+      setEmail(data.email);
+      setBirthdate(data.birthdate);
+      setIsLoading(false);
+    };
+
+    getUser();
+  }, [id]);
 
   const isEmpty = (value) => !value;
 
@@ -54,7 +48,7 @@ export default function ProfileEdit() {
       isEmpty(email) ||
       isEmpty(birthdate)
     ) {
-      //toast.error("Llena el form!!!!");
+      toast.error("Llena el form!!!!");
       return;
     }
 
@@ -67,83 +61,62 @@ export default function ProfileEdit() {
     };
 
     try {
-      await editUser(data);
-      // toast.success("Todo fine!!");
-      cleanForm();
+      await updateUser(id, data);
+      toast.success("Todo fine!!");
+      navigate(`/app/profiles/${id}`);
     } catch (error) {
+      toast.error("Algo salió mal");
       console.error(error);
     }
   };
 
   return (
     <div>
-      <h2>Editar</h2>
-      {!user ? (
-        <p>Loading</p>
+      <h2>Edit</h2>
+      {isLoading ? (
+        <p>Cargando...</p>
       ) : (
-        <div>
-          <img src={user.photoURL} />
-          <p>
-            {user.firstName} {user.lastName}
-          </p>
-          <p>{user.email}</p>
-          <div>
-            <h2>Llena los campos a editar</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="form-container">
-                <div className="form-child">
-                  <input
-                    className="input"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                </div>
-                <div className="form-child">
-                  <input
-                    className="input"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="form-container">
-                <div className="form-child">
-                  <input
-                    className="input"
-                    placeholder="Photo URL"
-                    type="url"
-                    value={photoURL}
-                    onChange={(e) => setPhotoURL(e.target.value)}
-                  />
-                </div>
-                <div className="form-child">
-                  <input
-                    className="input"
-                    placeholder="Email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="form-container">
-                <input
-                  className="input"
-                  placeholder="Birthdate"
-                  type="date"
-                  value={birthdate}
-                  onChange={(e) => setBirthdate(e.target.value)}
-                />
-              </div>
-              <button type="submit" className="btn">
-                Create User
-              </button>
-            </form>
+        <form onSubmit={handleSubmit}>
+          <div className="form-container">
+            <Input
+              placeholder="First Name"
+              value={firstName}
+              callback={(e) => setFirstName(e.target.value)}
+            />
+            <Input
+              placeholder="Last Name"
+              value={lastName}
+              callback={(e) => setLastName(e.target.value)}
+            />
           </div>
-        </div>
+          <div className="form-container">
+            <Input
+              type="url"
+              placeholder="Photo URL"
+              value={photoURL}
+              callback={(e) => setPhotoURL(e.target.value)}
+            />
+            <Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              callback={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-container">
+            <Input
+              type="date"
+              placeholder="Birthdate"
+              value={birthdate}
+              callback={(e) => setBirthdate(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="btn">
+            Edit User
+          </button>
+        </form>
       )}
+      <ToastContainer />
     </div>
   );
 }

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { create as createUser } from "../../../services/users";
 
 // Toastify
-//import { ToastContainer, toast } from "react-toastify";
-//import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // CSS
 import "./Create.css";
@@ -35,7 +35,7 @@ export default function ProfileCreate() {
       isEmpty(email) ||
       isEmpty(birthdate)
     ) {
-      //toast.error("Llena el form!!!!");
+      toast.error("Llena el form!!!!");
       return;
     }
 
@@ -49,7 +49,7 @@ export default function ProfileCreate() {
 
     try {
       await createUser(data);
-      // toast.success("Todo fine!!");
+      toast.success("Todo fine!!");
       cleanForm();
     } catch (error) {
       console.error(error);
@@ -111,6 +111,7 @@ export default function ProfileCreate() {
           Create User
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 }
